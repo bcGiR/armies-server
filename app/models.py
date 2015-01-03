@@ -42,7 +42,7 @@ class ArmyList(models.Model):
     faction = models.CharField(max_length=2,
             choices=FACTION_CHOICES)
     points = models.IntegerField(choices=POINTS_CHOICES)
-    created = models.DateTimeField(editable=False)
+    created = models.DateField(editable=False)
 
     owner = models.ForeignKey(User, related_name='armylists', null=True, blank=True)
     

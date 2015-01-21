@@ -1,0 +1,33 @@
+<h2><%- faction %>
+    <% if (points) { %>
+    <%- '- ' + points + 'pts' %>
+    <% } %></h2>
+<div class="row">
+    <a href="#/list/<%- faction_code %>" class ="btn btn-default">All</a>
+    <a href="#/list/<%- faction_code %>/15" class="btn btn-default">15 pts</a>
+    <a href="#/list/<%- faction_code %>/25" class="btn btn-default">25 pts</a>
+    <a href="#/list/<%- faction_code %>/35" class="btn btn-default">35 pts</a>
+    <a href="#/list/<%- faction_code %>/50" class="btn btn-default">50 pts</a>
+</div>
+<table class="table striped">
+    <thead>
+        <tr>
+            <th>Army Name</th>
+            <% if (!points) { %>
+            <th>Points</th>
+            <% } %>
+            <th>Date Created</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% _.each(armies, function(army) { %>
+    <tr>
+        <td><%- army.get('name') %></td>
+        <% if (!points) { %>
+        <td><%- army.get('points') %></td>
+        <% } %>
+        <td><%- army.get('created') %></td>
+    </tr>
+    <% }); %>
+    </tbody>
+</table>

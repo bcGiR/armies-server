@@ -1,9 +1,10 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from armies import settings
 
 urlpatterns = patterns('',
 
-    url(r'^', include('app.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-)
+        url(r'^', include('app.urls')),
+        url(r'^admin/', include(admin.site.urls)),
+        url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+        )

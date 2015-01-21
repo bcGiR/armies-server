@@ -1,5 +1,5 @@
-from app.serializers import ArmyListSerializer, UnitSerializer, UserSerializer
-from app.models import ArmyList, Unit
+from app.serializers import ArmyListSerializer, UnitSerializer, UserSerializer, ListEntrySerializer
+from app.models import ArmyList, Unit, ListEntry
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 import datetime
@@ -26,9 +26,32 @@ class ArmyListViewSet(viewsets.ModelViewSet):
         return qs
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user,
-                created=datetime.date.today())
+        if self.request.user.is_authenticated():
+            owner = self.request.user
+        else:
+            owner = None
+        serializer.save(owner=owner,
+                created=datetime.date.today(),
+                rating=0,
+                votes=0)
 
 class UnitViewSet(viewsets.ModelViewSet):
     serializer_class = UnitSerializer
-    queryset = Unit.objects.all()
+
+    def get_queryset(self):
+        qs = Unit.objects.all()
+
+        faction = self.request.QUERY_PARAMS.get('faction', None)
+        utype = self.request.QUERY_PARAMS.get('type', None)
+
+        if faction is not None:
+            qs = qs.filter(faction=faction)
+
+        if utype is not None:
+            qs = qs.filter(utype=utype)
+
+        return qs
+
+class ListEntryViewSet(viewsets.ModelViewSet):
+    serializer_class = ListEntrySerializer
+    queryset = ListEntry.objects.all()

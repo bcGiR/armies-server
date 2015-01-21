@@ -21,7 +21,7 @@ class ListEntrySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ListEntry
-        fields = ('unit', 'armylist', 'attached')
+        fields = ('url', 'unit', 'armylist', 'attached')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     armylists = serializers.HyperlinkedRelatedField(many=True, view_name='armylist-detail', read_only=True)

@@ -1,5 +1,6 @@
 from app.serializers import ArmyListSerializer, UnitSerializer, UserSerializer, ListEntrySerializer
 from app.models import ArmyList, Unit, ListEntry
+from app.permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 import datetime
@@ -10,6 +11,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     
 class ArmyListViewSet(viewsets.ModelViewSet):
     serializer_class = ArmyListSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
 
     def get_queryset(self):
         qs = ArmyList.objects.all()
@@ -37,6 +39,7 @@ class ArmyListViewSet(viewsets.ModelViewSet):
 
 class UnitViewSet(viewsets.ModelViewSet):
     serializer_class = UnitSerializer
+    permission_classes = (IsAdminOrReadOnly,)
 
     def get_queryset(self):
         qs = Unit.objects.all()

@@ -123,4 +123,4 @@ class ListEntry(models.Model):
     attached = models.ForeignKey('self', null=True, blank=True)
 
     def __str__(self):
-        return unit.name
+        return self.unit.name

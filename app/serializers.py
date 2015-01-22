@@ -4,11 +4,10 @@ from app.models import ArmyList, Unit, ListEntry
 
 class ArmyListSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    units = serializers.HyperlinkedRelatedField(many=True, view_name='unit-detail', queryset=Unit.objects.all())
 
     class Meta:
         model = ArmyList
-        fields = ('url', 'name', 'faction', 'points', 'created', 'owner', 'units', 'rating', 'votes')
+        fields = ('url', 'name', 'faction', 'points', 'created', 'owner', 'rating', 'votes')
 
 class UnitSerializer(serializers.HyperlinkedModelSerializer):
 

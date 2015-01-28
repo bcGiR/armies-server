@@ -17,7 +17,7 @@ define([
     var initialize = function(){
         // Not sure if this is the right place for the prefilter
         $.ajaxPrefilter( function( options, origionalOptions, jqXHR ) {
-            options.url = 'http://localhost:8000' + options.url;
+            options.url = 'http://localhost:8000/api' + options.url;
         });
 
         var app_router = new AppRouter;

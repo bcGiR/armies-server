@@ -17,6 +17,7 @@
             <th>Points</th>
             <% } %>
             <th>Date Created</th>
+            <th>Created By</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,11 @@
         <td><%- army.get('points') %></td>
         <% } %>
         <td><%- army.get('created') %></td>
+        <% if (army.get('owner')) { %>
+        <td><%- army.get('owner') %></td>
+        <% } else { %>
+        <td>Anonymous</td>
+        <% } %>
     </tr>
     <% }); %>
     </tbody>

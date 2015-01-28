@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang='en'>
+{% load staticfiles %}
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Army Rater</title>
+    <link rel='stylesheet' href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel='styleSheet' href="{% static 'app/css/style.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <a href="#"><h1>Army Rater</h1></a>
+        </div>
+        <div class="col-md-2" id="profile">
+        </div>
+    </div>
+    <hr />
+    <div class="page"></div>
+</div>
+
+<script data-main="{% static 'app/js/main' %}" src="{% static 'app/js/libs/require/require.min.js' %}"></script>
+
+</body>
+</html>

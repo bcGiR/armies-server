@@ -32,6 +32,7 @@ class ArmyListViewSet(viewsets.ModelViewSet):
             owner = self.request.user
         else:
             owner = None
+
         serializer.save(owner=owner,
                 created=datetime.date.today(),
                 rating=0,

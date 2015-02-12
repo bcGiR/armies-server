@@ -33,8 +33,8 @@ define([
             var army = new ArmyModel();
             var that = this;
             army.save(armyDetails, {
-                that.undelegateEvents();
                 success: function(army){
+                    that.undelegateEvents();
                     that.goTo('#/list/' + armyDetails.faction);
                 }
             });
@@ -44,7 +44,8 @@ define([
             var that = this;
             this.army.destroy({
                 success: function(){
-                    that.goTO('');
+                    that.undelegateEvents();
+                    that.goTo('');
                 }
             });
             return false;

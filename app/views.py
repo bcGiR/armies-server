@@ -11,7 +11,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     
 class ArmyListViewSet(viewsets.ModelViewSet):
     serializer_class = ArmyListSerializer
-    permission_classes = (IsOwnerOrReadOnly,)
+    # permission_classes = (IsOwnerOrReadOnly,)
 
     def get_queryset(self):
         qs = ArmyList.objects.all()
@@ -58,7 +58,7 @@ class UnitViewSet(viewsets.ModelViewSet):
 
 class ListEntryViewSet(viewsets.ModelViewSet):
     serializer_class = ListEntrySerializer
-    permission_classes = (IsListOwnerOrReadOnly,)
+    # permission_classes = (IsListOwnerOrReadOnly,)
 
     def get_queryset(self):
         qs = ListEntry.objects.all()

@@ -23,7 +23,7 @@
     <tbody>
     <% _.each(armies, function(army) { %>
     <tr>
-        <td><%- army.get('name') %></td>
+        <td><a href="#/edit/<%- army.get('id') %>"><%- army.get('name') %></a></td>
         <% if (!points) { %>
         <td><%- army.get('points') %></td>
         <% } %>

@@ -7,13 +7,13 @@ class ArmyListSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ArmyList
-        fields = ('url', 'name', 'faction', 'points', 'created', 'owner', 'rating', 'votes')
+        fields = ('url', 'id', 'name', 'faction', 'points', 'created', 'owner', 'rating', 'votes')
 
 class UnitSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Unit
-        fields = ('url', 'name', 'utype', 'faction', 'points', 'allowance', 'attach')
+        fields = ('url', 'id', 'name', 'utype', 'faction', 'points', 'allowance', 'attach')
         extra_kwargs = {'attach': {'many': True, 'queryset': Unit.objects.all()}}
 
 class ListEntrySerializer(serializers.HyperlinkedModelSerializer):

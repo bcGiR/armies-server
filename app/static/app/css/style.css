@@ -2,3 +2,6 @@ a, a:hover, a:visited {
     text-decoration: none;
     color: #333;
 }
+#new-btn {
+    margin-top: 25px;
+}

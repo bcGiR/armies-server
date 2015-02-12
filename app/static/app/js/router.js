@@ -3,12 +3,14 @@ define([
     'underscore',
     'backbone',
     'views/home',
-    'views/list'
-], function($, _, Backbone, HomeView, ListView){
+    'views/list',
+    'views/edit',
+], function($, _, Backbone, HomeView, ListView, EditView){
     var AppRouter = Backbone.Router.extend({
         routes: {
             '': 'home',
             'list/:faction_code(/:points)': 'list',
+            'edit(/:id)': 'editList',
 
             '*actions': 'defaultAction'
         }
@@ -35,6 +37,10 @@ define([
             var listView = new ListView();
             listView.render({faction_code: faction_code,
                              points: points});
+        });
+        app_router.on('route:editList', function(id){
+            var editView = new EditView();
+            editView.render({id: id});
         });
         Backbone.history.start();
     };

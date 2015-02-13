@@ -20,26 +20,26 @@ define([
                 var entries = new ListEntryCollection();
                 var data = $.param({id: id});
                 that.army = army;
-                entries.fetch({
+                $.when(entries.fetch({
                     data: data,
                     success: function(entries){
                         entries.each(function(entry) {
                             var unit = new UnitModel({id: entry.get('unitpk')});
                             unit.fetch({
                                 success: function(unit) {
-                                    // alert(unit.get('name')); WORKS
                                     units.push(unit);
-                                    // alert(units.length); WORKS
                                 }
                             });
                         });
                     }
-                });
-                army.fetch({
-                    success: function(army){
-                        var template = _.template(armyEditTemplate)({army: army, units: units});
-                        that.$el.html(template);
-                    }
+                })).done( function() {
+                    army.fetch({
+                        success: function(army){
+                            // alert(units.length); ** Gives very strange results I don't understand **
+                            var template = _.template(armyEditTemplate)({army: army, units: units});
+                            that.$el.html(template);
+                        }
+                    });
                 });
             } else {
                 var template = _.template(armyEditTemplate)({army: null});

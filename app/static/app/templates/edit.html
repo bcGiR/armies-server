@@ -24,7 +24,7 @@
         <option value="35" <%= army ? (army.get('points') == 35) ? 'selected' : '' : ''%>>35 Points</option>
         <option value="50" <%= army ? (army.get('points') == 50) ? 'selected' : '' : ''%>>50 Points</option>
     </select><br />
-    <% _.each(units, function(unit) { %>
+    <% units.each(function(unit) { %>
         <p><%- unit.get('name') %></p>
     <% }); %>
     <button type="submit" class="btn btn-primary"><%= army ? 'Update' : 'Create' %></button>

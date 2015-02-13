@@ -16,33 +16,21 @@ define([
             var id = options.id;
             if(options.id) {
                 var army = new ArmyModel({id: id});
-                var units = new UnitCollection();
                 var entries = new ListEntryCollection();
                 var data = $.param({list: id});
                 that.army = army;
                 $.when(entries.fetch({
-                    data: data,
-                    success: function(entries){
-                        entries.each(function(entry) {
-                            var unit = new UnitModel({id: entry.get('upk')});
-                            unit.fetch({
-                                success: function(unit) {
-                                    units.push(unit);
-                                }
-                            });
-                        });
-                    }
+                    data: data
                 })).done( function() {
                     army.fetch({
                         success: function(army){
-                            // alert(units.length); ** Gives strange results **
-                            var template = _.template(armyEditTemplate)({army: army, units: units});
+                            var template = _.template(armyEditTemplate)({army: army, entries: entries});
                             that.$el.html(template);
                         }
                     });
                 });
             } else {
-                var template = _.template(armyEditTemplate)({army: null});
+                var template = _.template(armyEditTemplate)({army: null, entries: null});
                 this.$el.html(template);
             }
         },

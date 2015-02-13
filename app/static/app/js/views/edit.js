@@ -18,7 +18,7 @@ define([
                 var army = new ArmyModel({id: id});
                 var units = new UnitCollection();
                 var entries = new ListEntryCollection();
-                var data = $.param({id: id});
+                var data = $.param({list: id});
                 that.army = army;
                 $.when(entries.fetch({
                     data: data,
@@ -35,7 +35,7 @@ define([
                 })).done( function() {
                     army.fetch({
                         success: function(army){
-                            // alert(units.length); ** Gives very strange results I don't understand **
+                            // alert(units.length); ** Gives strange results **
                             var template = _.template(armyEditTemplate)({army: army, units: units});
                             that.$el.html(template);
                         }

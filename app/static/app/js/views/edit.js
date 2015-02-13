@@ -24,7 +24,7 @@ define([
                     data: data,
                     success: function(entries){
                         entries.each(function(entry) {
-                            var unit = new UnitModel({id: entry.get('unitpk')});
+                            var unit = new UnitModel({id: entry.get('upk')});
                             unit.fetch({
                                 success: function(unit) {
                                     units.push(unit);

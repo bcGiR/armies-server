@@ -3,19 +3,41 @@ define([
     'underscore',
     'backbone',
     'models/army',
+    'models/unit',
+    'collections/listentries',
+    'collections/units',
     'util/serializeobject',
     'text!templates/edit.html'
-], function($, _, Backbone, ArmyModel, serializeObject, armyEditTemplate){
+], function($, _, Backbone, ArmyModel, UnitModel, ListEntryCollection, UnitCollection, serializeObject, armyEditTemplate){
     var EditView = Backbone.View.extend({
         el: '.page',
         render: function(options){
             var that = this;
+            var id = options.id;
             if(options.id) {
-                var army = new ArmyModel({id: options.id});
+                var army = new ArmyModel({id: id});
+                var units = new UnitCollection();
+                var entries = new ListEntryCollection();
+                var data = $.param({id: id});
                 that.army = army;
+                entries.fetch({
+                    data: data,
+                    success: function(entries){
+                        entries.each(function(entry) {
+                            var unit = new UnitModel({id: entry.get('unitpk')});
+                            unit.fetch({
+                                success: function(unit) {
+                                    // alert(unit.get('name')); WORKS
+                                    units.push(unit);
+                                    // alert(units.length); WORKS
+                                }
+                            });
+                        });
+                    }
+                });
                 army.fetch({
                     success: function(army){
-                        var template = _.template(armyEditTemplate)({army: army});
+                        var template = _.template(armyEditTemplate)({army: army, units: units});
                         that.$el.html(template);
                     }
                 });

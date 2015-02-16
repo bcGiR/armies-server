@@ -5,12 +5,14 @@ define([
     'views/home',
     'views/list',
     'views/edit',
-], function($, _, Backbone, HomeView, ListView, EditView){
+    'views/new',
+], function($, _, Backbone, HomeView, ListView, EditView, NewView){
     var AppRouter = Backbone.Router.extend({
         routes: {
             '': 'home',
             'list/:faction_code(/:points)': 'list',
-            'edit(/:id)': 'editList',
+            'edit/:id': 'editList',
+            'new': 'newList',
 
             '*actions': 'defaultAction'
         }
@@ -41,6 +43,10 @@ define([
         app_router.on('route:editList', function(id){
             var editView = new EditView();
             editView.render({id: id});
+        });
+        app_router.on('route:newList', function() {
+            var newView = new NewView();
+            newView.render();
         });
         Backbone.history.start();
     };

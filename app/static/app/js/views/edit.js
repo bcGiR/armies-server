@@ -12,6 +12,21 @@ define([
     var EditView = Backbone.View.extend({
         el: '.page',
         render: function(options){
+            var factions = {
+                'CY': 'Cygnar',
+                'ME': 'The Protectorate of Menoth',
+                'KD': 'Khador',
+                'CX': 'Cryx',
+                'RT': 'Retribution of Scyrah',
+                'CV': 'Convergence of Cyriss',
+                'MC': 'Mercenaries',
+                'TR': 'Trollbloods',
+                'CO': 'Circle Orboros',
+                'SK': 'Skorne',
+                'LG': 'Legion of Everblight',
+                'MN': 'Minions'
+            };
+            var points = [15, 25, 35, 50];
             var that = this;
             var id = options.id;
             if(options.id) {
@@ -24,13 +39,23 @@ define([
                 })).done( function() {
                     army.fetch({
                         success: function(army){
-                            var template = _.template(armyEditTemplate)({army: army, entries: entries});
+                            var template = _.template(armyEditTemplate)({
+                                army: army, 
+                                entries: entries, 
+                                factions: factions, 
+                                points: points
+                            });
                             that.$el.html(template);
                         }
                     });
                 });
             } else {
-                var template = _.template(armyEditTemplate)({army: null, entries: null});
+                var template = _.template(armyEditTemplate)({
+                    army: null, 
+                    entries: null, 
+                    factions: factions,
+                    points: points
+                });
                 this.$el.html(template);
             }
         },

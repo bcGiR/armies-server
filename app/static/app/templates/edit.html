@@ -4,25 +4,15 @@
     <input name="name" type="text" value="<%- army ? army.get('name') : '' %>">
     <label>Faction</label>
     <select name="faction">
-        <option value="CY" <%= army ? (army.get('faction') == 'CY') ? 'selected' : '' : ''%>>Cygnar</option>
-        <option value="ME" <%= army ? (army.get('faction') == 'ME') ? 'selected' : '' : ''%>>The Protectorate of Menoth</option>
-        <option value="KD" <%= army ? (army.get('faction') == 'KD') ? 'selected' : '' : ''%>>Khador</option>
-        <option value="CX" <%= army ? (army.get('faction') == 'CX') ? 'selected' : '' : ''%>>Cryx</option>
-        <option value="RT" <%= army ? (army.get('faction') == 'RT') ? 'selected' : '' : ''%>>Retribution of Scyrah</option>
-        <option value="CV" <%= army ? (army.get('faction') == 'CV') ? 'selected' : '' : ''%>>Convergence of Cyriss</option>
-        <option value="MC" <%= army ? (army.get('faction') == 'MC') ? 'selected' : '' : ''%>>Mercenaries</option>
-        <option value="TR" <%= army ? (army.get('faction') == 'TR') ? 'selected' : '' : ''%>>Trollbloods</option>
-        <option value="CO" <%= army ? (army.get('faction') == 'CO') ? 'selected' : '' : ''%>>Circle Orboros</option>
-        <option value="SK" <%= army ? (army.get('faction') == 'SK') ? 'selected' : '' : ''%>>Skorne</option>
-        <option value="LG" <%= army ? (army.get('faction') == 'LG') ? 'selected' : '' : ''%>>Legion of Everblight</option>
-        <option value="MN" <%= army ? (army.get('faction') == 'MN') ? 'selected' : '' : ''%>>Minions</option>
+        <% _.each(factions, function(faction, faction_code) { %>
+            <option value="<%- faction_code %>" <%= army ? (army.get('faction') == faction_code) ? 'selected' : '' : ''%>><%- faction %></option>
+        <% }); %>
     </select>
     <label>Points</label>
     <select name="points">
-        <option value="15" <%= army ? (army.get('points') == 15) ? 'selected' : '' : ''%>>15 Points</option>
-        <option value="25" <%= army ? (army.get('points') == 25) ? 'selected' : '' : ''%>>25 Points</option>
-        <option value="35" <%= army ? (army.get('points') == 35) ? 'selected' : '' : ''%>>35 Points</option>
-        <option value="50" <%= army ? (army.get('points') == 50) ? 'selected' : '' : ''%>>50 Points</option>
+        <% _.each(points, function(point) { %>
+            <option value="<%- point %>" <%= army ? (army.get('points') == point) ? 'selected' : '' : ''%>><%- point %> Points</option>
+        <% }); %>
     </select><br />
     <% if(entries) { %>
         <% entries.each(function(entry) { %>

@@ -16,19 +16,61 @@ define([
             var that = this;
             var id = options.id;
             var army = new ArmyModel({id: id});
-            var entries = new ListEntryCollection();
-            var data = $.param({list: id});
+            var warcasters = new ListEntryCollection();
+            var warcasters_data = $.param({
+                list: id,
+                type: 'WC'
+            });
+            var warjacks = new ListEntryCollection();
+            var warjacks_data = $.param({
+                list: id,
+                type: 'WJ'
+            });
+            var units = new ListEntryCollection();
+            var units_data = $.param({
+                list: id,
+                type: 'UN'
+            });
+            var attachments = new ListEntryCollection();
+            var attachments_data = $.param({
+                list: id,
+                type: 'UA'
+            });
+            var solos = new ListEntryCollection();
+            var solos_data = $.param({
+                list: id,
+                type: 'SL'
+            });
             that.army = army;
-            $.when(entries.fetch({
-                data: data
-            })).done( function() {
+            $.when(warcasters.fetch({
+                        data: warcasters_data
+                    }),
+                    warjacks.fetch({
+                        data: warjacks_data
+                    }),
+                    units.fetch({
+                        data: units_data
+                    }),
+                    attachments.fetch({
+                        data: attachments_data
+                    }),
+                    solos.fetch({
+                        data: solos_data
+                    })
+            ).done( function() {
                 army.fetch({
                     success: function(army){
                         var faction = FactionCode.getFaction(army.get('faction'));
                         var template = _.template(armyEditTemplate)({
                             army: army, 
                             faction: faction,
-                            entries: entries
+                            entries: {
+                                warcasters: warcasters,
+                                warjacks: warjacks,
+                                units: units,
+                                attachments: attachments,
+                                solos: solos
+                            }
                         });
                         that.$el.html(template);
                     }

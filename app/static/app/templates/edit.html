@@ -1,23 +1,25 @@
 <form class="edit-army-form">
     <legend><%- army.get('name') %><br /><%- faction %>: <%- army.get('points') %> points</legend>
-    <table class="table striped">
-        <thead>
-            <tr>
-                <th>Unit Name</th>
-                <th>Points</th>
-                <th>Allowance</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% entries.each(function(entry) { %>
-            <tr>
-                <td><%- entry.get('uname') %></td>
-                <td><%- entry.get('upoints') %></td>
-                <td><%- entry.get('uallowance') == 0 ? 'C' : entry.get('uallowance') ? entry.get('uallowance') : 'U' %></td>
-            </tr>
-            <% }); %>
-        </tbody>
+    <% _.each(entries, function(entry, key) { %>
+        <table class="table striped">
+            <thead>
+                <tr>
+                    <th><%- key %></th>
+                    <th>Points</th>
+                    <th>Allowance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% entry.each(function(unit) { %>
+                <tr>
+                    <td><%- unit.get('uname') %></td>
+                    <td><%- unit.get('upoints') %></td>
+                    <td><%- unit.get('uallowance') == 0 ? 'C' : unit.get('uallowance') ? unit.get('uallowance') : 'U' %></td>
+                </tr>
+                <% }); %>
+            </tbody>
         </table>
+    <% }); %>
     <button type="submit" class="btn btn-primary">Update</button>
     <input type="hidden" name="id" value="<%= army.id %>" />
     <button data-army-id="<%= army.id %>" class="btn btn-danger delete">Delete</button>

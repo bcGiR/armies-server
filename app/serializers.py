@@ -20,10 +20,11 @@ class ListEntrySerializer(serializers.HyperlinkedModelSerializer):
     upk = serializers.ReadOnlyField(source='unit.pk')
     uname = serializers.ReadOnlyField(source='unit.name')
     upoints = serializers.ReadOnlyField(source='unit.points')
+    uallowance = serializers.ReadOnlyField(source='unit.allowance')
 
     class Meta:
         model = ListEntry
-        fields = ('url', 'unit', 'upk', 'uname', 'upoints', 'armylist', 'attached')
+        fields = ('url', 'unit', 'upk', 'uname', 'upoints', 'uallowance', 'armylist', 'attached')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     armylists = serializers.HyperlinkedRelatedField(many=True, view_name='armylist-detail', read_only=True)

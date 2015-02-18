@@ -7,57 +7,33 @@ define([
     'collections/listentries',
     'collections/units',
     'util/serializeobject',
+    'util/factioncode',
     'text!templates/edit.html'
-], function($, _, Backbone, ArmyModel, UnitModel, ListEntryCollection, UnitCollection, serializeObject, armyEditTemplate){
+], function($, _, Backbone, ArmyModel, UnitModel, ListEntryCollection, UnitCollection, serializeObject, FactionCode, armyEditTemplate){
     var EditView = Backbone.View.extend({
         el: '.page',
         render: function(options){
-            var factions = {
-                'CY': 'Cygnar',
-                'ME': 'The Protectorate of Menoth',
-                'KD': 'Khador',
-                'CX': 'Cryx',
-                'RT': 'Retribution of Scyrah',
-                'CV': 'Convergence of Cyriss',
-                'MC': 'Mercenaries',
-                'TR': 'Trollbloods',
-                'CO': 'Circle Orboros',
-                'SK': 'Skorne',
-                'LG': 'Legion of Everblight',
-                'MN': 'Minions'
-            };
-            var points = [15, 25, 35, 50];
             var that = this;
             var id = options.id;
-            if(options.id) {
-                var army = new ArmyModel({id: id});
-                var entries = new ListEntryCollection();
-                var data = $.param({list: id});
-                that.army = army;
-                $.when(entries.fetch({
-                    data: data
-                })).done( function() {
-                    army.fetch({
-                        success: function(army){
-                            var template = _.template(armyEditTemplate)({
-                                army: army, 
-                                entries: entries, 
-                                factions: factions, 
-                                points: points
-                            });
-                            that.$el.html(template);
-                        }
-                    });
+            var army = new ArmyModel({id: id});
+            var entries = new ListEntryCollection();
+            var data = $.param({list: id});
+            that.army = army;
+            $.when(entries.fetch({
+                data: data
+            })).done( function() {
+                army.fetch({
+                    success: function(army){
+                        var faction = FactionCode.getFaction(army.get('faction'));
+                        var template = _.template(armyEditTemplate)({
+                            army: army, 
+                            faction: faction,
+                            entries: entries
+                        });
+                        that.$el.html(template);
+                    }
                 });
-            } else {
-                var template = _.template(armyEditTemplate)({
-                    army: null, 
-                    entries: null, 
-                    factions: factions,
-                    points: points
-                });
-                this.$el.html(template);
-            }
+            });
         },
         events: {
             'submit .edit-army-form': 'saveArmy',

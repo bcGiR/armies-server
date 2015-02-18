@@ -1,27 +1,24 @@
 <form class="edit-army-form">
-    <legend><%= army ? 'Edit' : 'New' %> Army</legend>
-    <label>Army Name</label>
-    <input name="name" type="text" value="<%- army ? army.get('name') : '' %>">
-    <label>Faction</label>
-    <select name="faction">
-        <% _.each(factions, function(faction, faction_code) { %>
-            <option value="<%- faction_code %>" <%= army ? (army.get('faction') == faction_code) ? 'selected' : '' : ''%>><%- faction %></option>
-        <% }); %>
-    </select>
-    <label>Points</label>
-    <select name="points">
-        <% _.each(points, function(point) { %>
-            <option value="<%- point %>" <%= army ? (army.get('points') == point) ? 'selected' : '' : ''%>><%- point %> Points</option>
-        <% }); %>
-    </select><br />
-    <% if(entries) { %>
-        <% entries.each(function(entry) { %>
-            <p><%- entry.get('uname') %> -- <%- entry.get('upoints') %></p>
-        <% }); %>
-    <% }; %>
-    <button type="submit" class="btn btn-primary"><%= army ? 'Update' : 'Create' %></button>
-    <% if(army) { %>
-        <input type="hidden" name="id" value="<%= army.id %>" />
-        <button data-army-id="<%= army.id %>" class="btn btn-danger delete">Delete</button>
-    <% }; %>
+    <legend><%- army.get('name') %><br /><%- faction %>: <%- army.get('points') %> points</legend>
+    <table class="table striped">
+        <thead>
+            <tr>
+                <th>Unit Name</th>
+                <th>Points</th>
+                <th>Allowance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% entries.each(function(entry) { %>
+            <tr>
+                <td><%- entry.get('uname') %></td>
+                <td><%- entry.get('upoints') %></td>
+                <td><%- entry.get('uallowance') == 0 ? 'C' : entry.get('uallowance') ? entry.get('uallowance') : 'U' %></td>
+            </tr>
+            <% }); %>
+        </tbody>
+        </table>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <input type="hidden" name="id" value="<%= army.id %>" />
+    <button data-army-id="<%= army.id %>" class="btn btn-danger delete">Delete</button>
 </form>

@@ -1,18 +1,18 @@
 <form class="edit-army-form">
     <legend>New Army</legend>
     <label>Army Name</label>
-    <input name="name" type="text">
+    <input name="name" type="text"><br />
     <label>Faction</label>
     <select name="faction">
         <% _.each(factions, function(faction, faction_code) { %>
             <option value="<%- faction_code %>"><%- faction %></option>
         <% }); %>
-    </select>
+    </select><br />
     <label>Points</label>
     <select name="points">
         <% _.each(points, function(point) { %>
             <option value="<%- point %>"><%- point %> Points</option>
         <% }); %>
-    </select><br />
+    </select><br /><br />
     <button type="submit" class="btn btn-primary">Create</button>
 </form>

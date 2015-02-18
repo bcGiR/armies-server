@@ -64,9 +64,13 @@ class ListEntryViewSet(viewsets.ModelViewSet):
         qs = ListEntry.objects.all()
 
         pk = self.request.QUERY_PARAMS.get('list', None)
+        utype = self.request.QUERY_PARAMS.get('type', None)
 
         if pk is not None:
             armylist = ArmyList.objects.get(pk=pk)
             qs = qs.filter(armylist=armylist)
+
+        if utype is not None:
+            qs = qs.filter(unit__utype=utype)
 
         return qs

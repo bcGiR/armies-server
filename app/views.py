@@ -65,6 +65,7 @@ class ListEntryViewSet(viewsets.ModelViewSet):
 
         pk = self.request.QUERY_PARAMS.get('list', None)
         utype = self.request.QUERY_PARAMS.get('type', None)
+        attached = self.request.QUERY_PARAMS.get('attached', None)
 
         if pk is not None:
             armylist = ArmyList.objects.get(pk=pk)
@@ -72,5 +73,10 @@ class ListEntryViewSet(viewsets.ModelViewSet):
 
         if utype is not None:
             qs = qs.filter(unit__utype=utype)
+
+        if attached is not None:
+            qs = qs.exclude(attached=None)
+        else:
+            qs = qs.filter(attached=None)
 
         return qs

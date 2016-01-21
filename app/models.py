@@ -120,7 +120,7 @@ class ArmyList(models.Model):
 class ListEntry(models.Model):
     unit = models.ForeignKey(Unit)
     armylist = models.ForeignKey(ArmyList)
-    attached = models.ForeignKey('self', null=True, blank=True)
+    attached = models.ForeignKey('self', null=True, blank=True, related_name='attachments')
 
     def __str__(self):
         return self.unit.name

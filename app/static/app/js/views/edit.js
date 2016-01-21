@@ -21,41 +21,38 @@ define([
                 list: id,
                 type: 'WC'
             });
-            var warjacks = new ListEntryCollection();
-            var warjacks_data = $.param({
-                list: id,
-                type: 'WJ'
-            });
             var units = new ListEntryCollection();
             var units_data = $.param({
                 list: id,
                 type: 'UN'
-            });
-            var attachments = new ListEntryCollection();
-            var attachments_data = $.param({
-                list: id,
-                type: 'UA'
             });
             var solos = new ListEntryCollection();
             var solos_data = $.param({
                 list: id,
                 type: 'SL'
             });
+            var attachments = new ListEntryCollection();
+            var attachments_data = $.param({
+                list: id,
+                attached: 'true'
+            });
+            entries = {
+                warcasters: warcasters,
+                units: units,
+                solos: solos
+            };
             that.army = army;
             $.when(warcasters.fetch({
                         data: warcasters_data
                     }),
-                    warjacks.fetch({
-                        data: warjacks_data
-                    }),
                     units.fetch({
                         data: units_data
                     }),
-                    attachments.fetch({
-                        data: attachments_data
-                    }),
                     solos.fetch({
                         data: solos_data
+                    }),
+                    attachments.fetch({
+                        data: attachments_data
                     })
             ).done( function() {
                 army.fetch({
@@ -64,13 +61,8 @@ define([
                         var template = _.template(armyEditTemplate)({
                             army: army, 
                             faction: faction,
-                            entries: {
-                                warcasters: warcasters,
-                                warjacks: warjacks,
-                                units: units,
-                                attachments: attachments,
-                                solos: solos
-                            }
+                            entries: entries,
+                            attachments: attachments
                         });
                         that.$el.html(template);
                     }

@@ -1,26 +1,27 @@
 <form class="edit-army-form">
-    <legend><%- army.get('name') %><br /><%- faction %>: <%- army.get('points') %> points</legend>
+        <span class="col-md-6"><h2><%- army.get('name') %>
+        </h2><h3><%- faction %>: <%- army.get('points') %> points</h3></span>
+        <span class="col-md-2"><br /><button type="submit" class="btn btn-primary">Update Army</button></span>
+        <span class="col-md-4"><br /><button data-army-id="<%= army.id %>" class="btn btn-danger delete">Delete Army</button></span>
     <% _.each(entries, function(entry, key) { %>
         <table class="table striped">
             <thead>
                 <tr>
-                    <th><%- key %></th>
-                    <th>Points</th>
-                    <th>Allowance</th>
+                    <th class="col-md-6 text-capitalize"><%- key %></th>
+                    <th class="col-md-3">Points</th>
+                    <th class="col-md-3">Allowance</th>
                 </tr>
             </thead>
             <tbody>
                 <% entry.each(function(unit) { %>
                 <tr>
-                    <td><%- unit.get('uname') %></td>
-                    <td><%- unit.get('upoints') %></td>
-                    <td><%- unit.get('uallowance') == 0 ? 'C' : unit.get('uallowance') ? unit.get('uallowance') : 'U' %></td>
+                    <td class="col-md-6"><%- unit.get('uname') %></td>
+                    <td class="col-md-3"><%- unit.get('upoints') %></td>
+                    <td class="col-md-3"><%- unit.get('uallowance') == 0 ? 'C' : unit.get('uallowance') ? unit.get('uallowance') : 'U' %></td>
                 </tr>
                 <% }); %>
             </tbody>
         </table>
     <% }); %>
-    <button type="submit" class="btn btn-primary">Update</button>
     <input type="hidden" name="id" value="<%= army.id %>" />
-    <button data-army-id="<%= army.id %>" class="btn btn-danger delete">Delete</button>
 </form>

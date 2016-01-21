@@ -13,8 +13,8 @@ class UnitSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Unit
-        fields = ('url', 'id', 'name', 'utype', 'faction', 'points', 'allowance', 'attach')
-        extra_kwargs = {'attach': {'many': True, 'queryset': Unit.objects.all()}}
+        fields = ('url', 'id', 'name', 'utype', 'faction', 'points', 'allowance', 'attachments')
+        extra_kwargs = {'attachments': {'many': True, 'queryset': Unit.objects.all()}}
 
 class ListEntrySerializer(serializers.ModelSerializer):
     upk = serializers.ReadOnlyField(source='unit.pk')
@@ -26,7 +26,7 @@ class ListEntrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ListEntry
-        fields = ('pk', 'url', 'unit', 'upk', 'uname', 'utype', 'upoints', 'uallowance', 'armylist', 'attached', 'attachments')
+        fields = ('pk', 'url', 'unit', 'upk', 'uname', 'utype', 'upoints', 'uallowance', 'attachments', 'armylist', 'attached')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     armylists = serializers.HyperlinkedRelatedField(many=True, view_name='armylist-detail', read_only=True)

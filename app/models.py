@@ -59,7 +59,7 @@ class Unit(models.Model):
     points = models.IntegerField()
     allowance = models.IntegerField(null=True, blank=True)
 
-    attach = models.ManyToManyField('self', symmetrical=False, null=True, blank=True)
+    attachments = models.ManyToManyField('self', symmetrical=False, null=True, blank=True)
 
     def __str__(self):
         return self.name

@@ -3,17 +3,16 @@
         </h2><h3><%- faction %>: <%- army.get('points') %> points</h3></span>
         <span class="col-md-2"><br /><button type="submit" class="btn btn-primary">Update Army</button></span>
         <span class="col-md-4"><br /><button data-army-id="<%= army.id %>" class="btn btn-danger delete">Delete Army</button></span>
-    <% _.each(entries, function(entry, key) { %>
         <table class="table striped">
             <thead>
                 <tr>
-                    <th class="col-md-6 text-capitalize"><%- key %></th>
+                    <th class="col-md-6">Unit</th>
                     <th class="col-md-3">Points</th>
                     <th class="col-md-3">Allowance</th>
                 </tr>
             </thead>
             <tbody>
-                <% entry.each(function(unit) { %>
+                <% entries.each(function(unit) { %>
                 <tr>
                     <td class="col-md-6"><%- unit.get('uname') %></td>
                     <td class="col-md-3"><%- unit.get('upoints') %></td>
@@ -22,6 +21,5 @@
                 <% }); %>
             </tbody>
         </table>
-    <% }); %>
     <input type="hidden" name="id" value="<%= army.id %>" />
 </form>

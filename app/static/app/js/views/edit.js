@@ -16,43 +16,13 @@ define([
             var that = this;
             var id = options.id;
             var army = new ArmyModel({id: id});
-            var warcasters = new ListEntryCollection();
-            var warcasters_data = $.param({
-                list: id,
-                type: 'WC'
+            var entries = new ListEntryCollection();
+            var entries_data = $.param({
+                list: id
             });
-            var units = new ListEntryCollection();
-            var units_data = $.param({
-                list: id,
-                type: 'UN'
-            });
-            var solos = new ListEntryCollection();
-            var solos_data = $.param({
-                list: id,
-                type: 'SL'
-            });
-            var attachments = new ListEntryCollection();
-            var attachments_data = $.param({
-                list: id,
-                attached: 'true'
-            });
-            entries = {
-                warcasters: warcasters,
-                units: units,
-                solos: solos
-            };
             that.army = army;
-            $.when(warcasters.fetch({
-                        data: warcasters_data
-                    }),
-                    units.fetch({
-                        data: units_data
-                    }),
-                    solos.fetch({
-                        data: solos_data
-                    }),
-                    attachments.fetch({
-                        data: attachments_data
+            $.when(entries.fetch({
+                        data: entries_data
                     })
             ).done( function() {
                 army.fetch({
@@ -61,8 +31,7 @@ define([
                         var template = _.template(armyEditTemplate)({
                             army: army, 
                             faction: faction,
-                            entries: entries,
-                            attachments: attachments
+                            entries: entries
                         });
                         that.$el.html(template);
                     }

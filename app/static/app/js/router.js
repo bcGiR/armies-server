@@ -31,21 +31,21 @@ define([
             app_router.navigate(loc, {trigger: true});
         };
 
+        var homeView = new HomeView();
+        var listView = new ListView();
+        var editView = new EditView();
+        var newView = new NewView();
         app_router.on('route:home', function(){
-            var homeView = new HomeView();
             homeView.render();
         });
         app_router.on('route:list', function(faction_code, points){
-            var listView = new ListView();
             listView.render({faction_code: faction_code,
                              points: points});
         });
         app_router.on('route:editList', function(id){
-            var editView = new EditView();
             editView.render({id: id});
         });
         app_router.on('route:newList', function() {
-            var newView = new NewView();
             newView.render();
         });
         Backbone.history.start();

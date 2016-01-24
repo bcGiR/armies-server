@@ -2,13 +2,14 @@
     <span class="col-md-6"><h2><%- army.get('name') %>
         </h2><h3><%- faction %>: <%- army.get('points') %> points</h3></span>
         <span class="col-md-2"><br /><button type="submit" class="btn btn-primary">Update Army</button></span>
-        <span class="col-md-4"><br /><button data-army-id="<%= army.id %>" class="btn btn-danger delete">Delete Army</button></span>
+        <span class="col-md-4"><br /><button type="button" data-army-id="<%= army.id %>" class="btn btn-danger delete">Delete Army</button></span>
         <table class="table striped">
             <thead>
                 <tr>
                     <th class="col-md-6">Unit</th>
-                    <th class="col-md-3">Points</th>
-                    <th class="col-md-3">Allowance</th>
+                    <th class="col-md-2">Points</th>
+                    <th class="col-md-2">Allowance</th>
+                    <th class="col-md-2">Remove</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,15 +17,18 @@
                 <% if (! unit.get('attached')) { %>
                     <tr>
                         <td class="col-md-6"><%- unit.get('uname') %></td>
-                        <td class="col-md-3"><%- unit.get('upoints') %></td>
-                        <td class="col-md-3"><%- unit.get('uallowance') == 0 ? 'C' : unit.get('uallowance') ? unit.get('uallowance') : 'U' %></td>
+                        <td class="col-md-2"><%- unit.get('upoints') %></td>
+                        <td class="col-md-2"><%- unit.get('uallowance') == 0 ? 'C' : unit.get('uallowance') ? unit.get('uallowance') : 'U' %></td>
+                        <td class="col-md-2"><button type="button" data-unit-id="<%= unit.get('pk') %>" class="btn btn-danger btn-xs remove">X</button></td>
                     </tr>
                     <% var attachments = entries.where({attached: unit.get('pk')}); %>
                     <% attachments.forEach(function(att) { %>
                         <tr>
                             <td class="col-md-6"><span class="col-md-1"></span><span class="col-md-11"><%- att.get('uname') %></span></td>
-                            <td class="col-md-3"><%- att.get('upoints') %></td>
-                            <td class="col-md-3"><%- att.get('uallowance') == 0 ? 'C' : unit.get('uallowance') ? unit.get('uallowance') : 'U' %></td>
+                            <td class="col-md-2"><%- att.get('upoints') %></td>
+                            <td class="col-md-2"><%- att.get('uallowance') == 0 ? 'C' : unit.get('uallowance') ? unit.get('uallowance') : 'U' %></td>
+                            <td class="col-md-2"><button type="button" class="btn btn-danger btn-xs">X</button></td>
+
                         </tr>
                     <% }); %>
                 <% } %>

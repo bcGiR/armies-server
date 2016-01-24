@@ -40,7 +40,8 @@ define([
         },
         events: {
             'submit .edit-army-form': 'saveArmy',
-            'click .delete': 'deleteArmy'
+            'click .delete': 'deleteArmy',
+            'click .remove': 'removeUnit'
         },
         saveArmy: function(ev){
             var armyDetails = $(ev.currentTarget).serializeObject();
@@ -48,7 +49,6 @@ define([
             var that = this;
             army.save(armyDetails, {
                 success: function(army){
-                    that.undelegateEvents();
                     that.goTo('#/list/' + armyDetails.faction);
                 }
             });
@@ -58,7 +58,6 @@ define([
             var that = this;
             this.army.destroy({
                 success: function(){
-                    that.undelegateEvents();
                     that.goTo('');
                 }
             });

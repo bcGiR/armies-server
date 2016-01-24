@@ -3,9 +3,10 @@ define([
     'underscore',
     'backbone',
     'collections/armies',
+    'views/armylistview',
     'util/factioncode',
     'text!templates/list.html'
-], function($, _, Backbone, ArmyCollection, FactionCode, listTemplate){
+], function($, _, Backbone, ArmyCollection, ArmyListView, FactionCode, listTemplate){
     var ListView = Backbone.View.extend({
         el: '.page',
         render: function(options){
@@ -22,11 +23,15 @@ define([
             armies.fetch({
                 data: data,
                 success: function(armies){
-                    var template = _.template(listTemplate)({armies: armies.models,
-                                                             faction_code: faction_code,
+                    var template = _.template(listTemplate)({faction_code: faction_code,
                                                              faction: faction,
                                                              points: points});
                     that.$el.html(template);
+                    armies.each(function(army){
+                        view = new ArmyListView({model: army});
+                        console.log(this.$('#armylisttbody'));
+                        this.$('#armylisttbody').append(view.render({points: points}).el);
+                    });
                  }
             });
         }

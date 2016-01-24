@@ -20,20 +20,6 @@
             <th>Created By</th>
         </tr>
     </thead>
-    <tbody>
-    <% _.each(armies, function(army) { %>
-    <tr>
-        <td><a href="#/edit/<%- army.get('id') %>"><%- army.get('name') %></a></td>
-        <% if (!points) { %>
-        <td><%- army.get('points') %></td>
-        <% } %>
-        <td><%- army.get('created') %></td>
-        <% if (army.get('owner')) { %>
-        <td><%- army.get('owner') %></td>
-        <% } else { %>
-        <td>Anonymous</td>
-        <% } %>
-    </tr>
-    <% }); %>
+    <tbody id="armylisttbody">
     </tbody>
 </table>

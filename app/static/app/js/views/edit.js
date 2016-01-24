@@ -21,6 +21,7 @@ define([
                 list: id
             });
             that.army = army;
+            console.log(army);
             $.when(entries.fetch({
                         data: entries_data
                     })
@@ -39,14 +40,14 @@ define([
             });
         },
         events: {
-            'submit .edit-army-form': 'saveArmy',
+            'click .update': 'saveArmy',
             'click .delete': 'deleteArmy',
             'click .remove': 'removeUnit'
         },
         saveArmy: function(ev){
-            var armyDetails = $(ev.currentTarget).serializeObject();
-            var army = new ArmyModel();
             var that = this;
+            var army = that.army;
+            var armyDetails = army.toJSON();
             army.save(armyDetails, {
                 success: function(army){
                     that.goTo('#/list/' + armyDetails.faction);
@@ -56,7 +57,7 @@ define([
         },
         deleteArmy: function(ev){
             var that = this;
-            this.army.destroy({
+            that.army.destroy({
                 success: function(){
                     that.goTo('');
                 }

@@ -15,13 +15,11 @@ define([
         render: function(options){
             var that = this;
             var id = options.id;
-            var army = new ArmyModel({id: id});
+            that.army = new ArmyModel({id: id});
             var entries = new ListEntryCollection();
             var entries_data = $.param({
                 list: id
             });
-            that.army = army;
-            console.log(army);
             $.when(entries.fetch({
                         data: entries_data
                     })

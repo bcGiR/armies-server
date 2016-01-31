@@ -29,7 +29,6 @@ define([
                     that.$el.html(template);
                     armies.each(function(army){
                         view = new ArmyListView({model: army});
-                        console.log(this.$('#armylisttbody'));
                         this.$('#armylisttbody').append(view.render({points: points}).el);
                     });
                  }

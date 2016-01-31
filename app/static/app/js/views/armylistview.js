@@ -12,7 +12,6 @@ define([
             var army = that.model;
             army.fetch({
                 success: function(army){
-                    console.log('success');
                     var template = _.template(armyListTemplate)({army: army,
                                                                 points: points});
                     that.$el.html(template);

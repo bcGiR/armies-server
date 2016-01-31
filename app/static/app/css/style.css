@@ -5,3 +5,7 @@ a, a:hover, a:visited {
 #new-btn {
     margin-top: 25px;
 }
+#editfactionimage {
+    height: 60px;
+    width: 60px;
+}

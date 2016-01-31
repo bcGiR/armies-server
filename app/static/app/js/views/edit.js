@@ -8,14 +8,18 @@ define([
     'collections/units',
     'util/serializeobject',
     'util/factioncode',
+    'util/getfactionimagepath',
     'text!templates/edit.html'
-], function($, _, Backbone, ArmyModel, UnitModel, ListEntryCollection, UnitCollection, serializeObject, FactionCode, armyEditTemplate){
+], function($, _, Backbone,
+    ArmyModel, UnitModel, ListEntryCollection, UnitCollection,
+    serializeObject, FactionCode, GetFactionImagePath, armyEditTemplate){
     var EditView = Backbone.View.extend({
         el: '.page',
         render: function(options){
             var that = this;
             var id = options.id;
-            that.army = new ArmyModel({id: id});
+            var army = new ArmyModel({id: id});
+            that.army = army;
             var entries = new ListEntryCollection();
             var entries_data = $.param({
                 list: id
@@ -27,9 +31,12 @@ define([
                 army.fetch({
                     success: function(army){
                         var faction = FactionCode.getFaction(army.get('faction'));
+                        var factionimagepath = GetFactionImagePath.getImagePath(faction);
+                        console.log(factionimagepath);
                         var template = _.template(armyEditTemplate)({
                             army: army, 
                             faction: faction,
+                            factionimagepath: factionimagepath,
                             entries: entries
                         });
                         that.$el.html(template);

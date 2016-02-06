@@ -32,7 +32,6 @@ define([
                     success: function(army){
                         var faction = FactionCode.getFaction(army.get('faction'));
                         var factionimagepath = GetFactionImagePath.getImagePath(faction);
-                        console.log(factionimagepath);
                         var template = _.template(armyEditTemplate)({
                             army: army, 
                             faction: faction,

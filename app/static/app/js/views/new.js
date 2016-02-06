@@ -27,7 +27,6 @@ define([
                 'MN': 'Minions'
             };
             var points = [15, 25, 35, 50];
-            var that = this;
             var template = _.template(armyNewTemplate)({
                     factions: factions,
                     points: points

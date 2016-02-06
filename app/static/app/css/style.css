@@ -2,6 +2,16 @@ a, a:hover, a:visited {
     text-decoration: none;
     color: #333;
 }
+#page-wrapper {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+}
+#army-list-tbody {
+    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+}
 #new-btn {
     margin-top: 25px;
 }

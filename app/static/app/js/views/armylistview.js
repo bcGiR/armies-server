@@ -8,16 +8,28 @@ define([
         tagName: "tr",
         render: function(options){
             var that = this;
-            var points = options.points;
-            var army = that.model;
-            army.fetch({
+            this.model.fetch({
                 success: function(army){
                     var template = _.template(armyListTemplate)({army: army,
-                                                                points: points});
+                                                                points: options.points});
                     that.$el.html(template);
                 }
             });
             return this;
+        },
+        events: {
+            "click .armylistitem" : "view",
+            "mouseover .armylistitem" : "highlight",
+            "mouseout .armylistitem" : "unhighlight"
+        },
+        view: function(ev){
+            this.goTo('#/edit/' + this.model.get("id"));
+        },
+        highlight: function(ev){
+            this.$el.addClass("highlight");
+        },
+        unhighlight: function(ev){
+            this.$el.removeClass("highlight");
         }
     });
     return ArmyListView;

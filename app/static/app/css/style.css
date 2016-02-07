@@ -1,16 +1,6 @@
-a, a:hover, a:visited {
+#site-title {
     text-decoration: none;
     color: #333;
-}
-#page-wrapper {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-}
-#army-list-tbody {
-    overflow: auto;
-    overflow-x: auto;
-    overflow-y: auto;
 }
 #new-btn {
     margin-top: 25px;
@@ -18,4 +8,7 @@ a, a:hover, a:visited {
 #editfactionimage {
     height: 60px;
     width: 60px;
+}
+.highlight {
+    background-color: #e6e6e6;
 }

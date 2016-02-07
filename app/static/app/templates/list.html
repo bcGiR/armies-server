@@ -1,16 +1,17 @@
+<div id="list-header">
 <h2><%- faction %>
     <% if (points) { %>
     <%- '- ' + points + 'pts' %>
     <% } %></h2>
-<div class="row">
     <a href="#/list/<%- faction_code %>" class ="btn btn-default">All</a>
     <a href="#/list/<%- faction_code %>/15" class="btn btn-default">15 pts</a>
     <a href="#/list/<%- faction_code %>/25" class="btn btn-default">25 pts</a>
     <a href="#/list/<%- faction_code %>/35" class="btn btn-default">35 pts</a>
     <a href="#/list/<%- faction_code %>/50" class="btn btn-default">50 pts</a>
 </div>
+<div id="list-table">
 <table class="table striped" id="army-list-table">
-    <thead>
+    <thead id="army-list-thead">
         <tr>
             <th>Army Name</th>
             <% if (!points) { %>
@@ -23,3 +24,4 @@
     <tbody id="army-list-tbody">
     </tbody>
 </table>
+</div>

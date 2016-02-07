@@ -1,10 +1,10 @@
-<td><a href="#/edit/<%- army.get('id') %>"><%- army.get('name') %></a></td>
+<td class="armylistitem"><%- army.get('name') %></td>
 <% if (!points) { %>
-<td><%- army.get('points') %></td>
+<td class="armylistitem"><%- army.get('points') %></td>
 <% } %>
-<td><%- army.get('created') %></td>
+<td class="armylistitem"><%- army.get('created') %></td>
 <% if (army.get('owner')) { %>
-<td><%- army.get('owner') %></td>
+<td class="armylistitem"><%- army.get('owner') %></td>
 <% } else { %>
-<td>Anonymous</td>
+<td class="armylistitem">Anonymous</td>
 <% } %>

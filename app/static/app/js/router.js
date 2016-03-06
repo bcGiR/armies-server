@@ -7,8 +7,9 @@ define([
     'views/edit',
     'views/new',
     'collections/armies',
-    'util/factioncode'
-], function($, _, Backbone, HomeView, ListView, EditView, NewView, ArmyCollection, FactionCode){
+    'util/factioncode',
+    'util/appview'
+], function($, _, Backbone, HomeView, ListView, EditView, NewView, ArmyCollection, FactionCode, AppView){
     var AppRouter = Backbone.Router.extend({
         routes: {
             '': 'home',
@@ -27,37 +28,46 @@ define([
         });
 
         var app_router = new AppRouter;
+        var appView = new AppView;
 
         // Extending View class to include a navigation method goTo
         Backbone.View.prototype.goTo = function(loc){
             app_router.navigate(loc, {trigger: true});
         };
+        Backbone.View.prototype.close = function() {
+            this.remove();
+            this.unbind();
+            if (this.onClose) {
+                this.onClose();
+            }
+        }
 
         app_router.on('route:home', function(){
             var homeView = new HomeView();
-            homeView.render();
+            appView.showView(homeView);
         });
         app_router.on('route:list', function(faction_code, points){
+            var data = null;
             if (points) {
-                var data = $.param({faction: faction_code, points: points});
+                data = $.param({faction: faction_code, points: points});
             } else {
-                var data = $.param({faction: faction_code});
+                data = $.param({faction: faction_code});
             }
             var faction = FactionCode.getFaction(faction_code);
             var armies = new ArmyCollection();
-            var listView = new ListView({collection: armies});
-            listView.render({data: data,
-                             faction: faction,
-                             faction_code: faction_code,
-                             points: points});
+            var listView = new ListView({collection: armies,
+                                         faction: faction,
+                                         faction_code: faction_code,
+                                         points: points});
+            appView.showView(listView);
         });
         app_router.on('route:editList', function(id){
-            var editView = new EditView();
-            editView.render({id: id});
+            var editView = new EditView({id: id});
+            appView.showView(editView);
         });
         app_router.on('route:newList', function() {
             var newView = new NewView();
-            newView.render();
+            appView.showView(editView);
         });
         Backbone.history.start();
     };

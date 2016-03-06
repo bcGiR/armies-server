@@ -14,10 +14,10 @@ define([
     ArmyModel, UnitModel, ListEntryCollection, UnitCollection,
     serializeObject, FactionCode, GetFactionImagePath, armyEditTemplate){
     var EditView = Backbone.View.extend({
-        el: '.page',
+        tagName: 'div',
         render: function(options){
             var that = this;
-            var id = options.id;
+            var id = this.id;
             var army = new ArmyModel({id: id});
             that.army = army;
             var entries = new ListEntryCollection();

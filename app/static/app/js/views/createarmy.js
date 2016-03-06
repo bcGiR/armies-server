@@ -11,7 +11,7 @@ define([
     'text!templates/create.html'
 ], function($, _, Backbone, ArmyModel, UnitModel, ListEntryCollection, UnitCollection, FactionCode, GetFactionImagePath, createTemplate){
     var CreateViewController = Backbone.View.extend({
-        el: '.page',
+        tagName: 'div',
         render: function(options){
             var that = this;
             var army = new ArmyModel({id: id});

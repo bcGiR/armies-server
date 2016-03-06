@@ -10,7 +10,7 @@ define([
     'text!templates/new.html'
 ], function($, _, Backbone, ArmyModel, UnitModel, ListEntryCollection, UnitCollection, serializeObject, armyNewTemplate){
     var NewView = Backbone.View.extend({
-        el: '.page',
+        tagName: 'div',
         render: function(options){
             var factions = {
                 'CY': 'Cygnar',

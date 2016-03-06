@@ -4,8 +4,9 @@ define([
     'backbone',
     'collections/armies',
     'views/armylistview',
+    'util/date',
     'text!templates/list.html'
-], function($, _, Backbone, ArmyCollection, ArmyListView, listTemplate){
+], function($, _, Backbone, ArmyCollection, ArmyListView, date, listTemplate){
     var ListView = Backbone.View.extend({
         el: '.page',
         render: function(options){
@@ -18,8 +19,11 @@ define([
                                                              points: options.points});
                     that.$el.html(template);
                     armies.each(function(army){
-                        view = new ArmyListView({model: army});
-                        this.$('#army-list-tbody').append(view.render({points: options.points}).el);
+                        var view = new ArmyListView({model: army});
+                        var date = Date.parse(army.get("created")); 
+                        var dateString = date.toString("dddd, MMMM d, yyyy");
+                        this.$('#army-list-tbody').append(view.render({dateString: dateString,
+                                                                       points: options.points}).el);
                     });
                  }
             });

@@ -11,6 +11,7 @@ define([
             this.model.fetch({
                 success: function(army){
                     var template = _.template(armyListTemplate)({army: army,
+                                                                dateString: options.dateString,
                                                                 points: options.points});
                     that.$el.html(template);
                 }
@@ -18,18 +19,10 @@ define([
             return this;
         },
         events: {
-            "click .armylistitem" : "view",
-            "mouseover .armylistitem" : "highlight",
-            "mouseout .armylistitem" : "unhighlight"
+            "click .armylistitem" : "view"
         },
         view: function(ev){
             this.goTo('#/edit/' + this.model.get("id"));
-        },
-        highlight: function(ev){
-            this.$el.addClass("highlight");
-        },
-        unhighlight: function(ev){
-            this.$el.removeClass("highlight");
         }
     });
     return ArmyListView;

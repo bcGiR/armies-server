@@ -2,7 +2,7 @@
 <% if (!points) { %>
 <td class="armylistitem"><%- army.get('points') %></td>
 <% } %>
-<td class="armylistitem"><%- army.get('created') %></td>
+<td class="armylistitem"><%- dateString %></td>
 <% if (army.get('owner')) { %>
 <td class="armylistitem"><%- army.get('owner') %></td>
 <% } else { %>

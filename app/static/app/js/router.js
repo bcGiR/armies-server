@@ -67,7 +67,7 @@ define([
         });
         app_router.on('route:newList', function() {
             var newView = new NewView();
-            appView.showView(editView);
+            appView.showView(newView);
         });
         Backbone.history.start();
     };

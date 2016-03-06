@@ -13,7 +13,7 @@ define([
     var AppRouter = Backbone.Router.extend({
         routes: {
             '': 'home',
-            'list/:faction_code(/:points)': 'list',
+            'list/:faction_code/:ordering(/:points)': 'list',
             'edit/:id': 'editList',
             'new': 'newList',
 
@@ -46,16 +46,11 @@ define([
             var homeView = new HomeView();
             appView.showView(homeView);
         });
-        app_router.on('route:list', function(faction_code, points){
-            var data = null;
-            if (points) {
-                data = $.param({faction: faction_code, points: points});
-            } else {
-                data = $.param({faction: faction_code});
-            }
+        app_router.on('route:list', function(faction_code, ordering, points){
             var faction = FactionCode.getFaction(faction_code);
             var armies = new ArmyCollection();
             var listView = new ListView({collection: armies,
+                                         ordering: ordering,
                                          faction: faction,
                                          faction_code: faction_code,
                                          points: points});

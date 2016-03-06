@@ -3,6 +3,7 @@ from app.models import ArmyList, Unit, ListEntry
 from app.permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly, IsListOwnerOrReadOnly
 from django.contrib.auth.models import User
 from rest_framework import viewsets
+from rest_framework import filters
 import datetime
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
@@ -11,6 +12,8 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     
 class ArmyListViewSet(viewsets.ModelViewSet):
     serializer_class = ArmyListSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = '__all__'
     # permission_classes = (IsOwnerOrReadOnly,)
 
     def get_queryset(self):
